@@ -36,15 +36,31 @@ router.post('/register', async (req, res) => {
 
 // Login Route
 router.post('/login', async (req, res) => {
-    const { login, password } = req.body;
 
-    // Input validation (add your validation logic here)
+    const { email, password } = req.body;
+    console.log(email)
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Login and password are required.' });
+    }
+
 
     try {
-        const existingUser = await User.findOne({ $or: [{ email: login }, { username: login }] });
-        if (!existingUser || !await bcrypt.compare(password, existingUser.password)) {
-            console.error(res.body)
-            return res.status(401).json({ message: 'Invalid credentials. Please try again!' });
+        // const email = login.trim().toLowerCase();
+        // console.log('Attempting to find user with email:', login);
+
+        const existingUser = await User.findOne({ email: email });
+        // console.log('User found:', existingUser.email);
+
+
+        if (!existingUser) {
+            return res.status(401).json({ message: 'User not found. Please register.' });
+        }
+
+        const isMatch = await existingUser.matchPassword(password);
+        // console.log('password match:', isMatch)
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid password. Please try again!' });
         }
 
         const token = jwt.sign(
@@ -55,9 +71,17 @@ router.post('/login', async (req, res) => {
 
         res.status(200).json({ token, userId: existingUser._id, email: existingUser.email });
     } catch (error) {
-        res.status(500).json({ message: "An error occurred." });
+        // Detailed error logging
+        console.error("Login error:", {
+            message: error.message,
+            stack: error.stack
+        });
+
+        // Send a generic error message to the client
+        res.status(500).json({ message: "An internal server error occurred." });
     }
 });
+
 
 export default router;
 

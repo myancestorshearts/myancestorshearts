@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     gender: {
         type: String,
         required: true,
-        enum: ['Male', 'Female', 'non-binary', 'prefer not to say'],
+        enum: ['Male', 'Female', 'Non-binary', 'Prefer not to say'],
         default: 'Select'
     },
     birthday: {

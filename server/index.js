@@ -10,7 +10,9 @@ import generalRoutes from './routes/dashboard_routes/general.js'
 import managementRoutes from './routes/dashboard_routes/management.js'
 import salesRoutes from './routes/dashboard_routes/sales.js'
 import authRoute from './routes/admin_routes/authRoutes.js'
+import userRoute from './routes/users_routes/userRoutes.js'
 
+process.env.NODE_OPTIONS = '--openssl-legacy-provider';
 
 // Configuration
 const app = express()
@@ -22,12 +24,17 @@ app.use(helmet.crossOriginResourcePolicy({
     policy: 'cross-origin'
 }));
 app.use(morgan('common'))
-app.use(bodyParser.json())
+app.use(express.json())
+// app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 
 // Admin Routes
 app.use('/authRoutes', authRoute)
+
+// Client Routes
+app.use('/userRoutes', userRoute)
+
 
 
 
@@ -40,7 +47,7 @@ app.use('/sales', salesRoutes)
 
 // MONGOOSE SETUP
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT;
 mongoose.connect(process.env.MONGO_URL).then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
 }).catch((err) => console.log(`${err} did not connect`))

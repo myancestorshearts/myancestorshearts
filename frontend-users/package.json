@@ -1,36 +1,25 @@
 {
-  "name": "client",
+  "name": "frontend-users",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@headlessui/react": "^1.7.18",
-    "@heroicons/react": "^1.0.6",
-    "@mui/icons-material": "^5.15.4",
-    "@mui/material": "^5.15.4",
-    "@mui/x-data-grid": "^6.18.7",
-    "@nivo/bar": "^0.84.0",
-    "@nivo/core": "^0.84.0",
-    "@nivo/geo": "^0.84.0",
-    "@nivo/pie": "^0.84.0",
-    "@reduxjs/toolkit": "^2.0.1",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.10",
+    "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.33",
     "react": "^18.2.0",
-    "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
-    "react-router-dom": "^6.21.2",
-    "react-scripts": "5.0.1",
-    "tailwindcss": "^3.4.1",
+    "react-router-dom": "^6.22.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -52,5 +41,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
   }
 }
